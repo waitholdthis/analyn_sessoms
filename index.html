@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analyn Sessoms | Luxury Real Estate — Sanford, NC</title>
+  <meta name="description" content="Analyn Sessoms is Sanford & Lee County's premier luxury real estate agent. Expert guidance for buyers and sellers across Sanford, Pittsboro, Apex, and surrounding communities." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./base.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="site-nav" id="site-nav" role="navigation" aria-label="Main navigation">
+    <a href="#" class="nav-logo" aria-label="Analyn Sessoms Real Estate Home">
+      <span class="nav-logo-name">Analyn Sessoms</span>
+      <span class="nav-logo-tagline">Real Estate</span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="#listings">Listings</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#markets">Markets</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <a href="#contact" class="nav-cta">Let's Talk</a>
+
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobile-nav" role="dialog" aria-label="Mobile navigation">
+    <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">✕</button>
+    <a href="#listings" class="mobile-nav-link">Listings</a>
+    <a href="#about" class="mobile-nav-link">About</a>
+    <a href="#markets" class="mobile-nav-link">Markets</a>
+    <a href="#testimonials" class="mobile-nav-link">Testimonials</a>
+    <a href="#contact" class="mobile-nav-link">Contact</a>
+  </div>
+
+  <!-- ===================== SOCIAL SIDEBAR ===================== -->
+  <nav class="social-sidebar" aria-label="Social media links">
+    <a href="https://www.facebook.com/analyn.sessoms.2025/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    </a>
+    <a href="#" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+    <a href="#" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+    </a>
+    <a href="mailto:analyn.sessoms@gmail.com" aria-label="Email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    </a>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" aria-label="Hero">
+    <img
+      src="./assets/hero.png"
+      alt="Luxury Southern estate at golden hour in the Sanford, NC area"
+      class="hero-bg"
+      loading="eager"
+      width="1920" height="1080"
+    />
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Serving</p>
+      <ul class="hero-markets" role="list">
+        <li class="hero-market-primary">Sanford</li>
+        <li>Pittsboro</li>
+        <li>Apex</li>
+        <li>Lee County</li>
+      </ul>
+    </div>
+
+    <a href="mailto:analyn.sessoms@gmail.com" class="hero-email">analyn.sessoms@gmail.com</a>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ===================== STATS ===================== -->
+  <section class="stats-section section-pad" aria-label="Key statistics">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item fade-in">
+          <div class="stat-number" data-target="150">0</div>
+          <div class="stat-label">Homes Sold</div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="stat-number" data-target="98" data-suffix="%">0%</div>
+          <div class="stat-label">List-to-Sale Price</div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="stat-number" data-target="12" data-suffix="yrs">0</div>
+          <div class="stat-label">Years of Experience</div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="stat-number" data-target="5" data-prefix="$" data-suffix="M+">$0</div>
+          <div class="stat-label">Total Sales Volume</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURED LISTINGS ===================== -->
+  <section class="listings-section section-pad" id="listings" aria-label="Featured listings">
+    <div class="container">
+      <div class="listings-header fade-in">
+        <div>
+          <p class="section-eyebrow">Exclusive Properties</p>
+          <h2 class="section-title">Featured Listings</h2>
+          <span class="gold-rule" aria-hidden="true"></span>
+        </div>
+        <a href="#contact" class="view-all-link">View All Properties</a>
+      </div>
+
+      <div class="listings-grid">
+        <!-- Card 1 -->
+        <article class="listing-card fade-in">
+          <div class="listing-card-img-wrap">
+            <img
+              src="./assets/hero.png"
+              alt="Grand colonial estate on tree-lined drive, Sanford NC"
+              class="listing-card-img"
+              loading="lazy" width="800" height="600"
+            />
+          </div>
+          <div class="listing-card-body">
+            <span class="listing-tag">Just Listed</span>
+            <div class="listing-price">$749,000</div>
+            <div class="listing-address">1842 Oakwood Estates Drive, Sanford, NC 27330</div>
+            <div class="listing-details">5 Bed &nbsp;·&nbsp; 4 Bath &nbsp;·&nbsp; 4,200 sqft</div>
+          </div>
+        </article>
+        <!-- Card 2 -->
+        <article class="listing-card fade-in">
+          <div class="listing-card-img-wrap">
+            <img
+              src="./assets/listing-exterior-2.png"
+              alt="Brick colonial home with mature landscaping, Lee County NC"
+              class="listing-card-img"
+              loading="lazy" width="800" height="600"
+            />
+          </div>
+          <div class="listing-card-body">
+            <span class="listing-tag">For Sale</span>
+            <div class="listing-price">$499,000</div>
+            <div class="listing-address">304 Berkley Ridge Lane, Pittsboro, NC 27312</div>
+            <div class="listing-details">4 Bed &nbsp;·&nbsp; 3 Bath &nbsp;·&nbsp; 3,050 sqft</div>
+          </div>
+        </article>
+        <!-- Card 3 -->
+        <article class="listing-card fade-in">
+          <div class="listing-card-img-wrap">
+            <img
+              src="./assets/listing-interior.png"
+              alt="Grand open-plan living room with coffered ceilings"
+              class="listing-card-img"
+              loading="lazy" width="800" height="600"
+            />
+          </div>
+          <div class="listing-card-body">
+            <span class="listing-tag">Coming Soon</span>
+            <div class="listing-price">$589,900</div>
+            <div class="listing-address">7716 Millbrook Court, Apex, NC 27502</div>
+            <div class="listing-details">4 Bed &nbsp;·&nbsp; 3.5 Bath &nbsp;·&nbsp; 3,400 sqft</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== AGENT BIO ===================== -->
+  <section class="bio-section" id="about" aria-label="About Analyn Sessoms">
+    <div class="bio-grid">
+      <div class="bio-image-col">
+        <img
+          src="./assets/analyn-portrait.png"
+          alt="Analyn Sessoms, luxury real estate agent"
+          class="bio-image"
+          loading="lazy" width="800" height="1067"
+        />
+        <div class="bio-image-accent" aria-hidden="true"></div>
+      </div>
+      <div class="bio-copy-col fade-in">
+        <p class="section-eyebrow" style="color: var(--color-accent-dark);">Your Trusted Agent</p>
+        <h2 class="bio-name">Analyn<br>Sessoms</h2>
+        <p class="bio-title">Realtor · Sanford & Surrounding Areas</p>
+        <p class="bio-copy">
+          Born and raised in the heart of North Carolina, Analyn Sessoms brings a deeply personal understanding of Sanford and Lee County to every transaction. Her roots in this community aren't just biographical — they're her competitive advantage.
+        </p>
+        <p class="bio-copy">
+          With over a decade of experience navigating the Central NC market, Analyn combines white-glove service with sharp negotiation skills and an intuitive read of local market trends. Whether you're buying your first home or selling a family estate, she treats every client like a neighbor — because they are.
+        </p>
+        <p class="bio-copy">
+          Consistently recognized among top producers in Lee County, Analyn's approach is built on transparency, tenacity, and a genuine love for connecting people with the homes they deserve.
+        </p>
+        <div class="bio-actions">
+          <a href="#contact" class="btn-primary">Work With Analyn</a>
+          <a href="#listings" class="btn-secondary">View Listings</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MARKETS ===================== -->
+  <section class="markets-section section-pad" id="markets" aria-label="Markets served">
+    <div class="container">
+      <div class="markets-intro fade-in">
+        <p class="section-eyebrow">Service Area</p>
+        <h2 class="section-title">Markets Served</h2>
+        <span class="gold-rule" aria-hidden="true"></span>
+        <p>Deep knowledge of Central North Carolina — from the lakefront communities of Lee County to the growing suburbs of Chatham and Wake.</p>
+      </div>
+      <div class="markets-grid">
+        <div class="market-item fade-in">
+          <div class="market-num">01</div>
+          <div class="market-name">Sanford</div>
+          <div class="market-desc">The heart of Lee County. A thriving small city with affordable luxury, historic charm, and strong community roots.</div>
+        </div>
+        <div class="market-item fade-in">
+          <div class="market-num">02</div>
+          <div class="market-name">Pittsboro</div>
+          <div class="market-desc">Chatham County's artistic hub. Rural character meets Triangle proximity — one of the most sought-after relocation destinations in NC.</div>
+        </div>
+        <div class="market-item fade-in">
+          <div class="market-num">03</div>
+          <div class="market-name">Apex</div>
+          <div class="market-desc">One of America's fastest-growing towns. Top-ranked schools, master-planned neighborhoods, and seamless access to RDU and Research Triangle Park.</div>
+        </div>
+        <div class="market-item fade-in">
+          <div class="market-num">04</div>
+          <div class="market-name">Lee County</div>
+          <div class="market-desc">Waterfront homes on Jordan Lake and Deep River corridor. A region rich in natural beauty and investment potential.</div>
+        </div>
+        <div class="market-item fade-in">
+          <div class="market-num">05</div>
+          <div class="market-name">Broadway</div>
+          <div class="market-desc">Quiet, rural character with emerging development. Spacious lots, privacy, and a true sense of place in the NC Piedmont.</div>
+        </div>
+        <div class="market-item fade-in">
+          <div class="market-num">06</div>
+          <div class="market-name">Surrounding Areas</div>
+          <div class="market-desc">Anywhere you want to be in Central NC — Analyn's network and market knowledge extend across the entire region.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIALS ===================== -->
+  <section class="testimonials-section section-pad" id="testimonials" aria-label="Client testimonials">
+    <div class="container-narrow">
+      <div class="testimonials-header fade-in">
+        <p class="section-eyebrow">Client Stories</p>
+        <h2 class="section-title">What Clients Are Saying</h2>
+        <span class="gold-rule" aria-hidden="true"></span>
+      </div>
+
+      <div class="testimonials-slider" id="testimonials-slider">
+        <div class="testimonials-track" id="testimonials-track">
+          <div class="testimonial-slide">
+            <div class="testimonial-card">
+              <span class="testimonial-quote-mark" aria-hidden="true">&ldquo;</span>
+              <p class="testimonial-text">
+                Analyn made selling our Sanford home completely stress-free. She priced it perfectly, had multiple offers within days, and we closed above asking. Her knowledge of this market is unmatched.
+              </p>
+              <div class="testimonial-author">Marcus &amp; Denise W.</div>
+              <div class="testimonial-location">Sold in Sanford, NC</div>
+            </div>
+          </div>
+          <div class="testimonial-slide">
+            <div class="testimonial-card">
+              <span class="testimonial-quote-mark" aria-hidden="true">&ldquo;</span>
+              <p class="testimonial-text">
+                We relocated from Virginia with no knowledge of Central NC. Analyn spent weekends showing us neighborhoods, explained the school districts in depth, and never once made us feel rushed. We found our dream home in Pittsboro.
+              </p>
+              <div class="testimonial-author">The Johnson Family</div>
+              <div class="testimonial-location">Relocated to Pittsboro, NC</div>
+            </div>
+          </div>
+          <div class="testimonial-slide">
+            <div class="testimonial-card">
+              <span class="testimonial-quote-mark" aria-hidden="true">&ldquo;</span>
+              <p class="testimonial-text">
+                As a first-time homebuyer, I had no idea what I was doing. Analyn walked me through every step, negotiated hard on my behalf, and I ended up in a home I love at a price I never expected to achieve. She's a force.
+              </p>
+              <div class="testimonial-author">Tiffany R.</div>
+              <div class="testimonial-location">First Home in Sanford, NC</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-controls">
+        <button class="testimonial-btn" id="prev-btn" aria-label="Previous testimonial">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="testimonial-dots" role="tablist" aria-label="Testimonials">
+          <button class="testimonial-dot active" data-index="0" aria-label="Testimonial 1" role="tab" aria-selected="true"></button>
+          <button class="testimonial-dot" data-index="1" aria-label="Testimonial 2" role="tab" aria-selected="false"></button>
+          <button class="testimonial-dot" data-index="2" aria-label="Testimonial 3" role="tab" aria-selected="false"></button>
+        </div>
+        <button class="testimonial-btn" id="next-btn" aria-label="Next testimonial">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA STRIP ===================== -->
+  <section class="cta-section" aria-label="Call to action">
+    <div class="container">
+      <div class="cta-inner">
+        <div class="cta-text-block">
+          <p class="cta-eyebrow">Ready to Move?</p>
+          <h2 class="cta-headline">Your Next Chapter<br>Starts Here.</h2>
+        </div>
+        <a href="#contact" class="btn-cta-dark">
+          Contact Analyn
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== NEWSLETTER ===================== -->
+  <section class="newsletter-section" aria-label="Newsletter signup">
+    <div class="container">
+      <div class="newsletter-inner">
+        <div class="newsletter-text">
+          <h3>Stay Ahead of the Market</h3>
+          <p>Get new listings, market updates, and neighborhood insights delivered to your inbox.</p>
+        </div>
+        <form class="newsletter-form" onsubmit="return false;">
+          <input type="email" class="newsletter-input" placeholder="Your email address" aria-label="Email address" />
+          <button type="submit" class="newsletter-btn">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="contact-section section-pad" id="contact" aria-label="Contact Analyn">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info fade-in">
+          <p class="section-eyebrow">Let's Connect</p>
+          <h2 class="section-title">Get In Touch</h2>
+          <span class="gold-rule" aria-hidden="true"></span>
+          <div class="contact-info-detail">
+            <div class="contact-info-item">
+              <div class="contact-info-item-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l1.02-1.02a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">Phone</div>
+                <div class="contact-info-value"><a href="tel:+19193551234">(919) 355-1234</a></div>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-item-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">Email</div>
+                <div class="contact-info-value"><a href="mailto:analyn.sessoms@gmail.com">analyn.sessoms@gmail.com</a></div>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-info-item-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="contact-info-label">Office</div>
+                <div class="contact-info-value">Sanford, NC 27330<br>Serving Lee County &amp; Surrounding Areas</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form fade-in" onsubmit="handleFormSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="fname">First Name</label>
+              <input type="text" id="fname" class="form-input" placeholder="Jane" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="lname">Last Name</label>
+              <input type="text" id="lname" class="form-input" placeholder="Smith" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input type="email" id="email" class="form-input" placeholder="jane@example.com" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone Number</label>
+            <input type="tel" id="phone" class="form-input" placeholder="(919) 000-0000" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="interest">I'm Looking To</label>
+            <select id="interest" class="form-input">
+              <option value="">Select one...</option>
+              <option value="buy">Buy a Home</option>
+              <option value="sell">Sell My Home</option>
+              <option value="both">Buy &amp; Sell</option>
+              <option value="invest">Invest in Property</option>
+              <option value="other">Just Have Questions</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Message</label>
+            <textarea id="message" class="form-input" placeholder="Tell me a little about what you're looking for…" rows="4"></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            Send Message
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer" aria-label="Site footer">
+    <img
+      src="./assets/footer-bg.png"
+      alt="Aerial view of Sanford, North Carolina at dusk"
+      class="footer-bg"
+      loading="lazy" width="1920" height="1080"
+      aria-hidden="true"
+    />
+    <div class="footer-overlay" aria-hidden="true"></div>
+
+    <div class="footer-inner container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo-name">Analyn Sessoms</div>
+          <div class="footer-logo-tagline">Luxury Real Estate · Sanford, NC</div>
+          <p class="footer-tagline">"The home you deserve<br>is closer than you think."</p>
+          <nav class="footer-social" aria-label="Social media">
+            <a href="https://www.facebook.com/analyn.sessoms.2025/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </nav>
+        </div>
+
+        <div class="footer-nav-col">
+          <div class="footer-nav-heading">Navigation</div>
+          <ul class="footer-nav-list" role="list">
+            <li><a href="#listings">Featured Listings</a></li>
+            <li><a href="#about">About Analyn</a></li>
+            <li><a href="#markets">Markets Served</a></li>
+            <li><a href="#testimonials">Client Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-col">
+          <div class="footer-nav-heading">Buyers</div>
+          <ul class="footer-nav-list" role="list">
+            <li><a href="#contact">Start Your Search</a></li>
+            <li><a href="#contact">Get Pre-Approved</a></li>
+            <li><a href="#markets">Neighborhood Guides</a></li>
+            <li><a href="#contact">First-Time Buyers</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-col">
+          <div class="footer-nav-heading">Sellers</div>
+          <ul class="footer-nav-list" role="list">
+            <li><a href="#contact">List Your Home</a></li>
+            <li><a href="#contact">Get a Market Analysis</a></li>
+            <li><a href="#contact">Home Staging Tips</a></li>
+            <li><a href="#contact">Relocation Services</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Analyn Sessoms Real Estate. All rights reserved.</p>
+        <ul class="footer-legal" role="list">
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Fair Housing</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== SCRIPTS ===================== -->
+  <script>
+    // Nav scroll behavior
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Hamburger
+    const hamburger = document.getElementById('nav-hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    const mobileClose = document.getElementById('mobile-nav-close');
+
+    function openMobileNav() {
+      mobileNav.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileNav() {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+    hamburger.addEventListener('click', openMobileNav);
+    mobileClose.addEventListener('click', closeMobileNav);
+    mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
+
+    // Testimonial slider
+    let currentSlide = 0;
+    const track = document.getElementById('testimonials-track');
+    const dots = document.querySelectorAll('.testimonial-dot');
+    const slides = document.querySelectorAll('.testimonial-slide');
+
+    function goToSlide(n) {
+      currentSlide = (n + slides.length) % slides.length;
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      dots.forEach((d, i) => {
+        d.classList.toggle('active', i === currentSlide);
+        d.setAttribute('aria-selected', i === currentSlide ? 'true' : 'false');
+      });
+    }
+
+    document.getElementById('prev-btn').addEventListener('click', () => goToSlide(currentSlide - 1));
+    document.getElementById('next-btn').addEventListener('click', () => goToSlide(currentSlide + 1));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => goToSlide(i)));
+
+    // Auto-advance
+    let autoSlide = setInterval(() => goToSlide(currentSlide + 1), 5000);
+    document.getElementById('testimonials-slider').addEventListener('mouseenter', () => clearInterval(autoSlide));
+    document.getElementById('testimonials-slider').addEventListener('mouseleave', () => {
+      autoSlide = setInterval(() => goToSlide(currentSlide + 1), 5000);
+    });
+
+    // Animated stat counters
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target, 10);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const duration = 1400;
+      const start = performance.now();
+
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(eased * target);
+        el.textContent = prefix + current + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.animated) {
+          entry.target.dataset.animated = '1';
+          animateCounter(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('[data-target]').forEach(el => statObserver.observe(el));
+
+    // Form handler
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.btn-submit');
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = 'var(--color-accent-dark)';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = 'Send Message';
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 4000);
+    }
+  </script>
+
+</body>
+</html>
