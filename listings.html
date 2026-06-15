@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Current Listings | Analyn Sessoms — eXp Realty | Sanford, NC</title>
+  <meta name="description" content="Browse current listings from Analyn Sessoms, 4x ICON Realtor® with eXp Realty. Homes for rent, land for sale, and more across Sanford, Pittsboro, Apex, and Central NC." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./base.css" />
+  <link rel="stylesheet" href="./style.css" />
+  <style>
+    /* ── Listings page–specific styles ── */
+    .listings-hero {
+      position: relative;
+      background: var(--color-bg);
+      padding-top: calc(80px + var(--space-16));
+      padding-bottom: var(--space-16);
+      border-bottom: 1px solid var(--color-border);
+      overflow: hidden;
+    }
+    .listings-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(200,169,110,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .listings-hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+    .listings-hero h1 {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: 600;
+      color: var(--color-text);
+      line-height: 1.05;
+      margin-bottom: var(--space-4);
+    }
+    .listings-hero p {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      max-width: 52ch;
+      margin-bottom: var(--space-8);
+    }
+    .listings-hero-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+      flex-wrap: wrap;
+    }
+    .listings-count-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      border: 1px solid rgba(200,169,110,0.3);
+      padding: var(--space-2) var(--space-4);
+    }
+    .listings-ext-link {
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      transition: color 180ms;
+    }
+    .listings-ext-link:hover { color: var(--color-accent); }
+    .listings-ext-link::after { content: '↗'; }
+
+    /* Filter tabs */
+    .filter-bar {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 72px;
+      z-index: 50;
+    }
+    .filter-bar-inner {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .filter-bar-inner::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: var(--space-5) var(--space-8);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 180ms, border-color 180ms;
+    }
+    .filter-btn:hover { color: var(--color-text); }
+    .filter-btn.active {
+      color: var(--color-accent);
+      border-bottom-color: var(--color-accent);
+    }
+
+    /* Listings grid */
+    .listings-main {
+      background: var(--color-bg);
+      padding-block: var(--space-16);
+    }
+    .listings-full-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+    .prop-card {
+      background: var(--color-surface);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 300ms cubic-bezier(0.16,1,0.3,1), box-shadow 300ms cubic-bezier(0.16,1,0.3,1);
+      text-decoration: none;
+      display: block;
+    }
+    .prop-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+    }
+    .prop-card[data-category="land"] .prop-img-wrap::after {
+      background: linear-gradient(to top, rgba(14,13,11,0.85) 0%, transparent 50%);
+    }
+    .prop-img-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      background: var(--color-surface-2);
+    }
+    .prop-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 600ms cubic-bezier(0.16,1,0.3,1);
+    }
+    .prop-card:hover .prop-img-wrap img { transform: scale(1.05); }
+    .prop-badge {
+      position: absolute;
+      top: var(--space-4);
+      left: var(--space-4);
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      z-index: 1;
+    }
+    .prop-badge-active   { background: #1a6e38; color: #fff; }
+    .prop-badge-pending  { background: var(--color-accent-red); color: #fff; }
+    .prop-badge-reduced  { background: var(--color-accent); color: var(--color-bg); }
+    .prop-badge-new      { background: #0a5a7a; color: #fff; }
+
+    .prop-category-pill {
+      position: absolute;
+      bottom: var(--space-4);
+      right: var(--space-4);
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      padding: 3px 8px;
+    }
+    .prop-body {
+      padding: var(--space-5) var(--space-6) var(--space-6);
+    }
+    .prop-price {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 600;
+      color: var(--color-accent);
+      line-height: 1;
+      margin-bottom: var(--space-2);
+    }
+    .prop-price-sub {
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      font-family: var(--font-body);
+      font-weight: 400;
+      margin-left: var(--space-1);
+    }
+    .prop-address {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text);
+      margin-bottom: var(--space-3);
+      line-height: 1.4;
+    }
+    .prop-specs {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-4);
+    }
+    .prop-spec {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+    .prop-spec svg { width: 13px; height: 13px; opacity: 0.6; }
+    .prop-desc {
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      line-height: 1.65;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      max-width: none;
+    }
+    .prop-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      transition: gap 180ms;
+    }
+    .prop-card:hover .prop-cta { gap: var(--space-3); }
+    .prop-cta::after { content: '→'; }
+
+    /* No results */
+    .no-results {
+      display: none;
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: var(--space-20) 0;
+      color: var(--color-text-muted);
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-style: italic;
+    }
+
+    /* Browse all CTA */
+    .browse-all-section {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      padding-block: var(--space-16);
+      text-align: center;
+    }
+    .browse-all-section h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+    }
+    .browse-all-section p {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text-muted);
+      max-width: 48ch;
+      margin: 0 auto var(--space-8);
+    }
+    .browse-all-actions {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Img placeholder shimmer */
+    .prop-img-placeholder {
+      width: 100%; height: 100%;
+      background: var(--color-surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-faint);
+    }
+    .prop-img-placeholder svg { width: 40px; height: 40px; opacity: 0.3; }
+
+    @media (max-width: 1024px) {
+      .listings-full-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .listings-full-grid { grid-template-columns: 1fr; }
+      .filter-btn { padding: var(--space-4) var(--space-5); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav scrolled" id="site-nav" role="navigation" aria-label="Main navigation">
+    <a href="./index.html" class="nav-logo" aria-label="Analyn Sessoms Real Estate Home">
+      <span class="nav-logo-name">Analyn Sessoms</span>
+      <span class="nav-logo-tagline">eXp Realty · 4x ICON Agent</span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="./listings.html" style="color:var(--color-accent)">Listings</a></li>
+      <li><a href="./index.html#about">About</a></li>
+      <li><a href="./index.html#markets">Markets</a></li>
+      <li><a href="./index.html#testimonials">Testimonials</a></li>
+      <li><a href="./index.html#contact">Contact</a></li>
+    </ul>
+    <a href="./index.html#contact" class="nav-cta">Let's Talk</a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobile-nav" role="dialog" aria-label="Mobile navigation">
+    <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">✕</button>
+    <a href="./listings.html" class="mobile-nav-link">Listings</a>
+    <a href="./index.html#about" class="mobile-nav-link">About</a>
+    <a href="./index.html#markets" class="mobile-nav-link">Markets</a>
+    <a href="./index.html#testimonials" class="mobile-nav-link">Testimonials</a>
+    <a href="./index.html#contact" class="mobile-nav-link">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="listings-hero">
+    <div class="container listings-hero-inner">
+      <p class="section-eyebrow">eXp Realty · Triangle NC</p>
+      <h1>Current Listings</h1>
+      <p>Browse active and pending properties from Analyn Sessoms across Sanford, Lee County, and the greater Triangle area — rentals, land, and residential homes.</p>
+      <div class="listings-hero-meta">
+        <span class="listings-count-badge">979+ Active Listings</span>
+        <a href="https://tri.exprealty.com/index.php?agentcodes=SESSAX#rslt" target="_blank" rel="noopener noreferrer" class="listings-ext-link">Browse all on eXp Realty</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar" role="tablist" aria-label="Filter listings by category">
+    <div class="container filter-bar-inner">
+      <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All Listings</button>
+      <button class="filter-btn" data-filter="rental" role="tab" aria-selected="false">Rentals</button>
+      <button class="filter-btn" data-filter="land" role="tab" aria-selected="false">Land &amp; Lots</button>
+      <button class="filter-btn" data-filter="forsale" role="tab" aria-selected="false">For Sale</button>
+    </div>
+  </div>
+
+  <!-- LISTINGS GRID -->
+  <main class="listings-main" id="main-content">
+    <div class="container">
+      <div class="listings-full-grid" id="listings-grid">
+
+        <!-- RENTALS -->
+
+        <!-- 1 -->
+        <a class="prop-card" data-category="rental"
+           href="https://tri.exprealty.com/property/31-10157621-7213-ridgefield-court-sanford-NC-27332"
+           target="_blank" rel="noopener noreferrer">
+          <div class="prop-img-wrap">
+            <img src="https://d36xftgacqn2p.cloudfront.net/listingphotos31/10157621-1.jpg"
+                 alt="7213 Ridgefield Court, Sanford NC — golf course townhome rental"
+                 loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'prop-img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg></div>'" />
+            <span class="prop-badge prop-badge-pending">Pending</span>
+            <span class="prop-category-pill">Rental</span>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$1,250<span class="prop-price-sub">/mo</span></div>
+            <div class="prop-address">7213 Ridgefield Court<br>Sanford, NC 27332</div>
+            <div class="prop-specs">
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                2 Bed
+              </span>
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M4 12a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/></svg>
+                2 Bath
+              </span>
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 3H3v18h18V3z"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
+                1,600 sqft
+              </span>
+            </div>
+            <p class="prop-desc">Charming 2BR/2BA townhome overlooking the 14th fairway of Quail Ridge Golf Course. Screened porch, natural light throughout, large walk-in closet, washer/dryer included. Minutes from US-1 and Southern Pines.</p>
+            <span class="prop-cta">View Listing</span>
+          </div>
+        </a>
+
+        <!-- 2 -->
+        <a class="prop-card" data-category="rental"
+           href="https://tri.exprealty.com/property/31-10172963-954-kensley-grv-lane-fuquay-varina-NC-27526"
+           target="_blank" rel="noopener noreferrer">
+          <div class="prop-img-wrap">
+            <img src="https://d36xftgacqn2p.cloudfront.net/listingphotos31/10172963-1.jpg"
+                 alt="954 Kensley Grove Lane, Fuquay Varina — brand new townhome rental"
+                 loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'prop-img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg></div>'" />
+            <span class="prop-badge prop-badge-new">New Construction</span>
+            <span class="prop-category-pill">Rental</span>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$1,940<span class="prop-price-sub">/mo</span></div>
+            <div class="prop-address">954 Kensley Grv Lane<br>Fuquay Varina, NC 27526</div>
+            <div class="prop-specs">
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                3 Bed
+              </span>
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M4 12a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/></svg>
+                2.5 Bath
+              </span>
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                1-Car Garage
+              </span>
+            </div>
+            <p class="prop-desc">Brand new end-unit townhome in Kensley Grove. Walking distance to Fuquay-Varina Library, 1 mile from downtown dining and breweries, under 10 min to Target. Open floor plan, bright and airy — available now.</p>
+            <span class="prop-cta">View Listing</span>
+          </div>
+        </a>
+
+        <!-- 3 -->
+        <a class="prop-card" data-category="rental"
+           href="https://tri.exprealty.com/property/31-10157669-252-millennium-drive-pittsboro-NC-27312"
+           target="_blank" rel="noopener noreferrer">
+          <div class="prop-img-wrap">
+            <img src="https://d36xftgacqn2p.cloudfront.net/listingphotos31/10157669-1.jpg"
+                 alt="252 Millennium Drive, Pittsboro — Chatham Park rental"
+                 loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'prop-img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg></div>'" />
+            <span class="prop-badge prop-badge-pending">Pending</span>
+            <span class="prop-category-pill">Rental</span>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$2,195<span class="prop-price-sub">/mo</span></div>
+            <div class="prop-address">252 Millennium Drive<br>Pittsboro, NC 27312</div>
+            <div class="prop-specs">
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                3 Bed
+              </span>
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M4 12a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/></svg>
+                2.5 Bath
+              </span>
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 3H3v18h18V3z"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
+                1,820 sqft
+              </span>
+            </div>
+            <p class="prop-desc">Modern home in sought-after Chatham Park. White 42" cabinets, quartz countertops, stainless appliances, gas stove, water filtration system. Walk-in closets in primary and 2nd bedroom. Built 2022.</p>
+            <span class="prop-cta">View Listing</span>
+          </div>
+        </a>
+
+        <!-- 4 -->
+        <a class="prop-card" data-category="rental"
+           href="https://tri.exprealty.com/property/31-10149897-2700-jockeys-ridge-trace-apex-NC-27502"
+           target="_blank" rel="noopener noreferrer">
+          <div class="prop-img-wrap">
+            <img src="https://d36xftgacqn2p.cloudfront.net/listingphotos31/10149897-1.jpg"
+                 alt="2700 Jockeys Ridge Trace, Apex — 5 bedroom rental home"
+                 loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'prop-img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg></div>'" />
+            <span class="prop-badge prop-badge-pending">Pending</span>
+            <span class="prop-category-pill">Rental</span>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$2,999<span class="prop-price-sub">/mo</span></div>
+            <div class="prop-address">2700 Jockeys Ridge Trace<br>Apex, NC 27502</div>
+            <div class="prop-specs">
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                5 Bed
+              </span>
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M4 12a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/></svg>
+                3.5 Bath
+              </span>
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 3H3v18h18V3z"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
+                2,064 sqft
+              </span>
+            </div>
+            <p class="prop-desc">Spacious 5BR with playroom, loft, and bonus room over garage. Main bedroom on main level, hardwood floors, gas stove, fenced yard. Community pool, nearby parks. Bella Casa neighborhood, built 2016.</p>
+            <span class="prop-cta">View Listing</span>
+          </div>
+        </a>
+
+        <!-- 5 – extra rental -->
+        <a class="prop-card" data-category="rental"
+           href="https://tri.exprealty.com/property/31-10149343-2305-fitzgerald-avenue-durham-NC-27707"
+           target="_blank" rel="noopener noreferrer">
+          <div class="prop-img-wrap">
+            <img src="https://d36xftgacqn2p.cloudfront.net/listingphotos31/10149343-1.jpg"
+                 alt="2305 Fitzgerald Avenue, Durham NC rental"
+                 loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'prop-img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg></div>'" />
+            <span class="prop-badge prop-badge-reduced">Reduced</span>
+            <span class="prop-category-pill">Rental</span>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$2,000<span class="prop-price-sub">/mo</span></div>
+            <div class="prop-address">2305 Fitzgerald Avenue<br>Durham, NC 27707</div>
+            <div class="prop-specs">
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                Residential
+              </span>
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Price Reduced
+              </span>
+            </div>
+            <p class="prop-desc">Reduced price rental in Durham. Convenient location with easy access to major roads, schools, and local amenities. Contact Analyn for showing details and availability.</p>
+            <span class="prop-cta">View Listing</span>
+          </div>
+        </a>
+
+        <!-- 6 – extra rental -->
+        <a class="prop-card" data-category="rental"
+           href="https://tri.exprealty.com/property/31-10149720-4126-trevino-drive-durham-NC-27704"
+           target="_blank" rel="noopener noreferrer">
+          <div class="prop-img-wrap">
+            <img src="https://d36xftgacqn2p.cloudfront.net/listingphotos31/10149720-1.jpg"
+                 alt="4126 Trevino Drive, Durham — water views rental"
+                 loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'prop-img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg></div>'" />
+            <span class="prop-badge prop-badge-active">Water Views</span>
+            <span class="prop-category-pill">Rental</span>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$1,795<span class="prop-price-sub">/mo</span></div>
+            <div class="prop-address">4126 Trevino Drive<br>Durham, NC 27704</div>
+            <div class="prop-specs">
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                Residential
+              </span>
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l1.02-1.02a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Water Views
+              </span>
+            </div>
+            <p class="prop-desc">Rental home with beautiful water views in Durham. Peaceful setting with convenient access to Research Triangle Park and RDU. Contact Analyn for full details and a showing.</p>
+            <span class="prop-cta">View Listing</span>
+          </div>
+        </a>
+
+        <!-- LAND -->
+
+        <!-- 7 -->
+        <a class="prop-card" data-category="land"
+           href="https://tri.exprealty.com/property/31-10159764-0-falling-stream-sanford-NC-27330"
+           target="_blank" rel="noopener noreferrer">
+          <div class="prop-img-wrap">
+            <img src="https://d36xftgacqn2p.cloudfront.net/listingphotos31/10159764-1.jpg"
+                 alt="0 Falling Stream, Sanford NC — Carolina Trace land lot"
+                 loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'prop-img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg></div>'" />
+            <span class="prop-badge prop-badge-pending">Pending</span>
+            <span class="prop-category-pill">Land</span>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$10,000</div>
+            <div class="prop-address">0 Falling Stream<br>Sanford, NC 27330</div>
+            <div class="prop-specs">
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                0.37 Acres
+              </span>
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                Carolina Trace
+              </span>
+              <span class="prop-spec">Lee County</span>
+            </div>
+            <p class="prop-desc">Build your dream home in one of Sanford's greatest communities — Carolina Trace. Quiet, established neighborhood with golf course amenity access. 0.37-acre lot ready for your custom build.</p>
+            <span class="prop-cta">View Listing</span>
+          </div>
+        </a>
+
+        <!-- 8 -->
+        <a class="prop-card" data-category="land"
+           href="https://tri.exprealty.com/property/31-10163830-0-sharpe-road-cameron-NC-28326"
+           target="_blank" rel="noopener noreferrer">
+          <div class="prop-img-wrap">
+            <img src="https://d36xftgacqn2p.cloudfront.net/listingphotos31/10163830-1.jpg"
+                 alt="0 Sharpe Road, Cameron NC — residential lot"
+                 loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'prop-img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg></div>'" />
+            <span class="prop-badge prop-badge-active">Active</span>
+            <span class="prop-category-pill">Land</span>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$12,500</div>
+            <div class="prop-address">0 Sharpe Road<br>Cameron, NC 28326</div>
+            <div class="prop-specs">
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                0.11 Acres
+              </span>
+              <span class="prop-spec">Lee County</span>
+            </div>
+            <p class="prop-desc">Residential lot with road frontage in Lee County. Close to shopping, schools, and major highways. Great option for a small homesite or long-term investment in a growing area. MLS# 10163830.</p>
+            <span class="prop-cta">View Listing</span>
+          </div>
+        </a>
+
+        <!-- 9 -->
+        <a class="prop-card" data-category="land"
+           href="https://tri.exprealty.com/property/31-LP757516-0-lot-28-chartres-street-fuquay-varina-NC-27526"
+           target="_blank" rel="noopener noreferrer">
+          <div class="prop-img-wrap">
+            <img src="https://d36xftgacqn2p.cloudfront.net/listingphotos31/LP757516-1.jpg"
+                 alt="Lot 28 Chartres Street, Fuquay Varina — Captains Landing lot"
+                 loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'prop-img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg></div>'" />
+            <span class="prop-badge prop-badge-reduced">Reduced</span>
+            <span class="prop-category-pill">Land</span>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$20,000</div>
+            <div class="prop-address">Lot 28 Chartres Street<br>Fuquay Varina, NC 27526</div>
+            <div class="prop-specs">
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                0.45 Acres
+              </span>
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                Captains Landing
+              </span>
+              <span class="prop-spec">Harnett County</span>
+            </div>
+            <p class="prop-desc">Private 0.45-acre homesite in Captains Landing with convenient highway access. Build the custom home you've been envisioning. Adjacent Lot 27 also available — own both for a larger build site.</p>
+            <span class="prop-cta">View Listing</span>
+          </div>
+        </a>
+
+        <!-- 10 -->
+        <a class="prop-card" data-category="land"
+           href="https://tri.exprealty.com/property/31-10158714-00-e-washington-street-lillington-NC-27546"
+           target="_blank" rel="noopener noreferrer">
+          <div class="prop-img-wrap">
+            <img src="https://d36xftgacqn2p.cloudfront.net/listingphotos31/10158714-1.jpg"
+                 alt="E Washington Street, Lillington NC — vacant lot"
+                 loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'prop-img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg></div>'" />
+            <span class="prop-badge prop-badge-pending">Pending</span>
+            <span class="prop-category-pill">Land</span>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$25,000</div>
+            <div class="prop-address">E Washington Street<br>Lillington, NC 27546</div>
+            <div class="prop-specs">
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                0.15 Acres
+              </span>
+              <span class="prop-spec">Harnett County</span>
+            </div>
+            <p class="prop-desc">Vacant lot zoned RS10 in the growing town of Lillington. Water and sewer available at the street. Adjacent lot also available (MLS# 10158721) — combine for a larger footprint.</p>
+            <span class="prop-cta">View Listing</span>
+          </div>
+        </a>
+
+        <!-- 11 -->
+        <a class="prop-card" data-category="land"
+           href="https://tri.exprealty.com/property/31-10147017-5609-barbee-chapel-road-chapel-hill-NC-27517"
+           target="_blank" rel="noopener noreferrer">
+          <div class="prop-img-wrap">
+            <img src="https://d36xftgacqn2p.cloudfront.net/listingphotos31/10147017-1.jpg"
+                 alt="5609 Barbee Chapel Road, Chapel Hill NC — land lot"
+                 loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'prop-img-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><rect x=\'3\' y=\'3\' width=\'18\' height=\'18\' rx=\'2\'/><circle cx=\'8.5\' cy=\'8.5\' r=\'1.5\'/><polyline points=\'21 15 16 10 5 21\'/></svg></div>'" />
+            <span class="prop-badge prop-badge-active">Active</span>
+            <span class="prop-category-pill">Land</span>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$25,000</div>
+            <div class="prop-address">5609 Barbee Chapel Road<br>Chapel Hill, NC 27517</div>
+            <div class="prop-specs">
+              <span class="prop-spec">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                Land / Lot
+              </span>
+              <span class="prop-spec">Orange County</span>
+            </div>
+            <p class="prop-desc">Land investment opportunity in Chapel Hill — one of the Triangle's most desirable and sought-after communities. Contact Analyn for full details on this parcel.</p>
+            <span class="prop-cta">View Listing</span>
+          </div>
+        </a>
+
+        <!-- No results message -->
+        <div class="no-results" id="no-results" aria-live="polite">
+          No listings match this filter. <a href="https://tri.exprealty.com/index.php?agentcodes=SESSAX#rslt" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent)">Browse all 979+ on eXp Realty →</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- BROWSE ALL CTA -->
+  <section class="browse-all-section" aria-label="Browse all listings">
+    <div class="container">
+      <p class="section-eyebrow">eXp Realty · Triangle MLS</p>
+      <h2>Explore All 979+ Listings</h2>
+      <p>The featured properties above are just a selection. Browse the complete portfolio of active listings across the Triangle — rentals, land, residential homes, and more.</p>
+      <div class="browse-all-actions">
+        <a href="https://tri.exprealty.com/index.php?agentcodes=SESSAX#rslt"
+           target="_blank" rel="noopener noreferrer"
+           class="btn-primary">Browse All Listings ↗</a>
+        <a href="./index.html#contact" class="btn-secondary">Contact Analyn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (simplified) -->
+  <footer style="background:var(--color-bg);border-top:1px solid var(--color-border);padding:var(--space-8) 0;">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4);">
+      <div>
+        <div style="font-family:var(--font-display);font-size:var(--text-lg);color:var(--color-text);letter-spacing:0.08em;text-transform:uppercase;">Analyn Sessoms</div>
+        <div style="font-family:var(--font-body);font-size:var(--text-xs);color:var(--color-accent);letter-spacing:0.15em;text-transform:uppercase;">eXp Realty · 4x ICON Agent</div>
+      </div>
+      <div style="font-family:var(--font-body);font-size:var(--text-xs);color:var(--color-text-faint);">
+        © 2026 Analyn Sessoms · eXp Realty. Listing data courtesy Triangle MLS.
+      </div>
+      <a href="./index.html" style="font-family:var(--font-body);font-size:var(--text-xs);font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent);text-decoration:none;">← Back to Home</a>
+    </div>
+  </footer>
+
+  <script>
+    // Nav hamburger
+    const hamburger = document.getElementById('nav-hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    const mobileClose = document.getElementById('mobile-nav-close');
+    hamburger.addEventListener('click', () => {
+      mobileNav.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    });
+    mobileClose.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+    mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      document.body.style.overflow = '';
+    }));
+
+    // Filter tabs
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.prop-card');
+    const noResults = document.getElementById('no-results');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+
+        filterBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        let visible = 0;
+        cards.forEach(card => {
+          const show = filter === 'all' || card.dataset.category === filter;
+          card.style.display = show ? 'block' : 'none';
+          if (show) visible++;
+        });
+
+        noResults.style.display = visible === 0 ? 'block' : 'none';
+      });
+    });
+  </script>
+
+</body>
+</html>
