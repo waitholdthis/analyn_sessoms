@@ -450,6 +450,27 @@
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
 }
+.stats-intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-12) var(--space-8) var(--space-10);
+  text-align: center;
+}
+.stats-intro-word {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+}
+.stats-intro-dot {
+  color: var(--color-accent);
+  font-size: var(--text-xl);
+  line-height: 1;
+}
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
